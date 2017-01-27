@@ -11,7 +11,7 @@ namespace DesktopApplication
 {
     public class ConnectWithServer
     {
-        const int port = 8888;
+        const int port = 8870;
         const string address = "192.168.0.103";
         static TcpClient client = new TcpClient(address, port);
         public string Connect(string message)

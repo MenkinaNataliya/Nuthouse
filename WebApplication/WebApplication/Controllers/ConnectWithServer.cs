@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Web;
 using Newtonsoft.Json;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -49,12 +50,33 @@ namespace WebApplication.Controllers
             var json = new JsonMessage {Type = "hello"};
             return Connect(JsonConvert.SerializeObject(json));
         }
+        public string SetInformation(Equipment information)
+        {
+            var list = new List<Equipment> { information };
+            var json = new JsonMessage { Type = "AddEquipment", Equipment = list };
+
+            return Connect(JsonConvert.SerializeObject(json));
+        }
+        public List<Equipment> GetEquipments(string inventNum)
+        {
+            var json = new JsonMessage { Type = "GetEquipment", InventoryNumber = inventNum };
+            var list = Connect(JsonConvert.SerializeObject(json));
+            var items = JsonConvert.DeserializeObject<JsonMessage>(list);
+            return items.Equipment;
+
+        }
+        public string[] GetCity()
+        {
+
+            var json = new JsonMessage { Type = "City" };
+            return Connect(JsonConvert.SerializeObject(json)).Split(',');
+        }
 
     }
     class JsonMessage
     {
         public string Type;
-        //public List<Equipment> equipment;
+        public List<Equipment> Equipment;
         public string InventoryNumber;
         public string NewStatus;
         public List<string> citiesFilters;

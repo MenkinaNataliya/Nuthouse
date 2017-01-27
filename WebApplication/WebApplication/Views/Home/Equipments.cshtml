@@ -1,0 +1,109 @@
+﻿@model IEnumerable<WebApplication.Models.Equipment>
+
+@{
+    ViewBag.Title = "Equipments";
+}
+
+<h2>Equipments</h2>
+
+<p>
+    @Html.ActionLink("Создать новое устройство", "AddEquipment")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.InventoryNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OldInventoryNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Denomination)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Modernization)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Housing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Floor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cabinet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Responsible)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WhoUses)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comment)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.InventoryNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OldInventoryNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Denomination)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Modernization)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.City)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Housing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Floor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cabinet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Responsible)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WhoUses)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comment)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Change", new {  id=item.InventoryNumber })
+        </td>
+    </tr>
+}
+
+</table>

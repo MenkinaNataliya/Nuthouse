@@ -17,16 +17,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Система инвентаризации", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Добавить устройство", "AddEquipment", "Home")</li>
+                    <li>@Html.ActionLink("Просмотреть все устройства", "Equipments", "Home")</li>
+                    <li>@Html.ActionLink("Изменить статус", "Change", "Home")</li>
+                    <li>@Html.ActionLink("Создать отчет", "Report", "Home")</li>
+
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class="container body-content"  style="max-width: 1400px;">
         @RenderBody()
         <hr />
         <footer>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using Newtonsoft.Json;
 using WebApplication.Models;
 
@@ -19,6 +20,37 @@ namespace WebApplication.Controllers
         public ActionResult AddEquipment()
         {
             //var connect = new ConnectWithServer();
+            
+            //var list = connect.GetCity();
+            //var listItem = new List<SelectListItem>();
+            //foreach (var item in list)
+            //{
+            //    listItem.Add(new SelectListItem() {Text = item});
+
+            //}
+
+            //ViewBag.cities = connect.GetCity();
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Equipments()
+        {
+            var connect = new ConnectWithServer();
+           
+            return View(connect.GetEquipments(""));
+        }
+
+        [HttpGet]
+        public ActionResult Report()
+        {
+            //var connect = new ConnectWithServer();
+            //ViewBag.message = connect.GetHello();
+            return View();
+        }
+        [HttpGet]
+        public ActionResult Change()
+        {
+            //var connect = new ConnectWithServer();
             //ViewBag.message = connect.GetHello();
             return View();
         }
@@ -27,12 +59,12 @@ namespace WebApplication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var list = new List<Equipment> { information };
-                var json = new JsonMessage { Type = "AddEquipment", equipment = list };
-
-                if( JsonConvert.SerializeObject(json) == "Данные добавлены успешно")
+                var connect = new ConnectWithServer();
+                var error = connect.SetInformation(equip);
+                if ( error == "Данные добавлены успешно")
                     return RedirectToAction("Index");
-                else ViewBag.Message = "Устройство с таким инвентарным номером уже существует";
+                ViewBag.Message = error;
+                return View(equip);
             }
             ViewBag.Message = "Non Valid";
             return View(equip);
