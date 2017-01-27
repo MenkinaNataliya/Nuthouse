@@ -96,7 +96,7 @@ namespace DesktopApplication
         {
             Microsoft.Office.Interop.Word.Application application = new Microsoft.Office.Interop.Word.Application();
             Object missingObj = Missing.Value;
-            Object templatePathObj = "E:/учеба/Nuthouse/templateDefect.docx";
+            Object templatePathObj = "C:/Users/Наталия/Documents/Учеба/Nuthouse/DesktopApplication/templateDefect.docx";
             Document document = application.Documents.Add(ref templatePathObj, ref missingObj, ref missingObj, ref missingObj);
 
 

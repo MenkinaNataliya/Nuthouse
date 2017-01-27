@@ -11,7 +11,7 @@ namespace DesktopApplication
    
     public partial class Report : Form
     {
-     //   List<ServerApp.Equip> equips;
+        List<Equipment> equips;
 
 
         public Report(List<string> citiesFilters, List<string> denominationFilter, List<string> markFilter, List<string> statusFilter, List<string> responsibleFilter, bool modernizationFilter)
@@ -21,7 +21,8 @@ namespace DesktopApplication
         }
         public void InitializeForm(List<string> citiesFilters, List<string> denominationFilter, List<string> markFilter, List<string> statusFilter, List<string> responsibleFilter, bool modernizationFilter)
         {
-            //equips = ServerApp.Controller.GetEquipments(citiesFilters, denominationFilter, markFilter, statusFilter, responsibleFilter, modernizationFilter);
+            ConnectWithServer connect = new ConnectWithServer();
+            equips = connect.GetReport(citiesFilters, denominationFilter, markFilter, statusFilter, responsibleFilter, modernizationFilter);
 
 
             System.Data.DataTable t = new System.Data.DataTable();
@@ -34,13 +35,13 @@ namespace DesktopApplication
             t.Columns.Add("Статус");
             t.Columns.Add("Примечание");
 
-           /* foreach(var equip in equips)
+            foreach(var equip in equips)
             {
                 t.Rows.Add(equip.InventoryNumber, equip.OldInventoryNumber, equip.denomination,
                                 equip.mark, equip.City + "" + equip.Housing, equip.Responsible,
                                 equip.Status, equip.Comment);
                 
-            }*/
+            }
             table.DataSource = t;
           
         }
@@ -84,10 +85,10 @@ namespace DesktopApplication
 
 
             int j = 6;
-            /*foreach (var equip in equips)
+            foreach (var equip in equips)
             {
-                ObjWorkSheet.Cells[j, 1] = equip.InventoryNumber.ToString();
-                ObjWorkSheet.Cells[j, 2] = equip.OldInventoryNumber.ToString();
+                ObjWorkSheet.Cells[j, 1] = equip.InventoryNumber;
+                ObjWorkSheet.Cells[j, 2] = equip.OldInventoryNumber;
                 ObjWorkSheet.Cells[j, 3] = equip.denomination;
                 ObjWorkSheet.Cells[j , 4] = equip.mark + " " + equip.model;
                 ObjWorkSheet.Cells[j, 5] = equip.City;
@@ -95,7 +96,7 @@ namespace DesktopApplication
                 ObjWorkSheet.Cells[j , 7] = equip.Status;
                 ObjWorkSheet.Cells[j , 8] = equip.Comment;
                 j++;
-            }*/
+            }
 
             excelcells = ObjWorkSheet.get_Range("A5", "H"+(j-1));
             excelcells.Borders.ColorIndex = 1;

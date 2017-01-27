@@ -17,7 +17,7 @@ namespace Server
         {
             try
             {
-                listener = new TcpListener(IPAddress.Parse("192.168.0.102"), port);
+                listener = new TcpListener(IPAddress.Parse("192.168.0.103"), port);
                 listener.Start();
                 Console.WriteLine("Ожидание подключений...");
 

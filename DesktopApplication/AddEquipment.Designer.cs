@@ -290,7 +290,7 @@
             this.InventNumber.Name = "InventNumber";
             this.InventNumber.Size = new System.Drawing.Size(136, 26);
             this.InventNumber.TabIndex = 18;
-            this.InventNumber.TextChanged += new System.EventHandler(this.InventNumber_TextChanged);
+            
             this.InventNumber.Validating += new System.ComponentModel.CancelEventHandler(this.InventNumber_Validating);
             // 
             // OldInventNumber

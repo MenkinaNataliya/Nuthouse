@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,10 @@ namespace DesktopApplication
 {
     public class Equipment
     {
-        public string InventoryNumber { get; set; }
-        public string OldInventoryNumber { get; set; }
+        [Display(Name = "Инвентарный номер")]
+        public virtual string InventoryNumber { get; set; }
+        [Display(Name = "Старый инвентарный номер")]
+        public virtual  string OldInventoryNumber { get; set; }
         public string denomination { get; set; }///
         public string mark { get; set; }///
         public string model { get; set; }

@@ -45,6 +45,9 @@ namespace Server
                     var jsonmsg = JsonConvert.DeserializeObject<JsonMessage>(message);
                     switch (jsonmsg.Type)
                     {
+                        case "hello":
+                            message = "hello object123";
+                            break;
                         case "Marks": message = ArrayObjectToString(Get.Marks()); break;
                         case "Denomination": message = ArrayObjectToString(Get.Denominations()); break;
                         case "City": message = ArrayObjectToString(Get.City()); break;
@@ -78,14 +81,23 @@ namespace Server
                         {
                             var tmp = Get.Equipments(jsonmsg.InventoryNumber);
                             var list = TranslateEquipments(tmp);
-                            //list = tmp.ConvertAll(new Converter<DataBase.Equipment, Equipment>(ConvertEquipment));
                             var json = new JsonMessage {equipment = list};
 
                             message = JsonConvert.SerializeObject(json);
                         }
                             break;
                         case "ChangeStatus": Service.ChangeStatus(jsonmsg.InventoryNumber, jsonmsg.NewStatus); break;
+                        case "GetReport":
+                        {
+                            var tmp = Get.Equipments(jsonmsg.citiesFilters, jsonmsg.denominationFilter,
+                                jsonmsg.markFilter, jsonmsg.statusFilter, jsonmsg.responsibleFilter,
+                                jsonmsg.modernizationFilter);
+                            var list = TranslateEquipments(tmp);
+                            var json = new JsonMessage { equipment = list };
 
+                            message = JsonConvert.SerializeObject(json);
+                        }
+                        break;
                     }
                     data = Encoding.Unicode.GetBytes(message);
                     stream.Write(data, 0, data.Length);

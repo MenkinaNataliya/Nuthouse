@@ -12,7 +12,7 @@ namespace DesktopApplication
     public class ConnectWithServer
     {
         const int port = 8888;
-        const string address = "192.168.0.102";
+        const string address = "192.168.0.103";
         static TcpClient client = new TcpClient(address, port);
         public string Connect(string message)
         {
@@ -93,6 +93,24 @@ namespace DesktopApplication
             var json = new JsonMessage { Type = "ChangeStatus", InventoryNumber = inventNum,  NewStatus = status};
             return Connect(JsonConvert.SerializeObject(json));
         }
+
+        public List<Equipment> GetReport(List<string> citiesFilters, List<string> denominationFilter,
+            List<string> markFilter, List<string> statusFilter, List<string> responsibleFilter, bool modernizationFilter)
+        {
+            var json = new JsonMessage
+            {
+                citiesFilters = citiesFilters,
+                denominationFilter = denominationFilter,
+                markFilter = markFilter,
+                modernizationFilter = modernizationFilter,
+                responsibleFilter = responsibleFilter,
+                statusFilter = statusFilter,
+                Type = "GetReport"
+            };
+            var list = Connect(JsonConvert.SerializeObject(json));
+            var items = JsonConvert.DeserializeObject<JsonMessage>(list);
+            return items.equipment;
+        }
     }
     class JsonMessage
     {
@@ -100,5 +118,12 @@ namespace DesktopApplication
         public List<Equipment> equipment;
         public string InventoryNumber;
         public string NewStatus;
+        public List<string> citiesFilters;
+        public List<string> denominationFilter;
+        public List<string> markFilter;
+        public List<string> statusFilter;
+        public List<string> responsibleFilter;
+        public bool modernizationFilter;
+
     }
 }
