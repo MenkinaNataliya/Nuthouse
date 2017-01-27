@@ -74,7 +74,7 @@ namespace Server
                                 jsonmsg.equipment[0].City, jsonmsg.equipment[0].Housing, 
                                 jsonmsg.equipment[0].Floor, jsonmsg.equipment[0].Cabinet);
 
-                            message = error != "" ? error : "Данные добавлены успешно";
+                            message = error == "" ? "Данные добавлены успешно" : "Устройство с таким инвентарным номером уже существует";
                         }
                             break;
                         case "GetEquipment":

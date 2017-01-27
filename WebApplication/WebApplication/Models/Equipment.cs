@@ -8,7 +8,7 @@ namespace WebApplication.Models
 {
     public class Equipment
     {
-        [Required]
+        [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Инвентарный номер")]
         public string InventoryNumber { get; set; }
 
