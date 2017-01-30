@@ -101,19 +101,14 @@ namespace DataBase
             }
         }
 
-        public static List<Equipment> History()
+        public static List<ChangeHistory> History()
         {
             using (DbModel db = new DbModel())
             {
-                var history = db.History.ToList();
-                var numbers = new List<string>();
-                foreach (var his in history)
-                    numbers.Add(his.InventNumber);
-
-                return db.Equipments.Include("Mark")
-                                        .Include("Responsible")
-                                        .Include("City").Include("denomination")
-                                        .Where(x => numbers.Any(y => y == x.InventoryNumber)).ToList();
+                var list =  db.History.ToList();
+                db.History.RemoveRange(db.History);
+                db.SaveChanges();
+                return list;
             }
         }
     }

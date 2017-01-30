@@ -9,14 +9,13 @@ namespace Server
     class JsonMessage
     {
         public string Type;
-        public List<Equipment> equipment;
-        public string InventoryNumber;
-        public string NewStatus;
-        public List<string> citiesFilters;
-        public List<string> denominationFilter;
-        public List<string> markFilter;
-        public List<string> statusFilter;
-        public List<string> responsibleFilter;
-        public bool modernizationFilter;
+        public List<HistoryEquipment> History;
     }
+    class HistoryEquipment
+    {
+        public string InventoryNumber;
+        public string OldStatus;
+        public string NewStatus;
+    }
+
 }
