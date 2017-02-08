@@ -15,7 +15,6 @@ namespace WebApplication.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            //ViewBag.Message = message;
             return View();
         }
 
@@ -85,18 +84,9 @@ namespace WebApplication.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Status(Equipment equip)
-        {
-            //var connect = new ConnectWithServer();
-            //ViewBag.message = connect.GetHello();
-            return Redirect("Change/"+equip.InventoryNumber);
-        }
-        [HttpGet]
-        public ActionResult Status()
-        {
-            return View();
-        }
+
+
+        
         [HttpGet]
         public ActionResult Change( string id)
         {
@@ -123,6 +113,19 @@ namespace WebApplication.Controllers
             ViewBag.SuccessMessage = "Данные об устройстве изменены успешно";
             return Redirect("Index");
          }
+
+
+
+        [HttpGet]
+        public ActionResult Status()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Status(Equipment equip)
+        {
+            return Redirect("Change/" + equip.InventoryNumber);
+        }
 
 
 
