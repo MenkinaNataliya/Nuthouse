@@ -15,33 +15,27 @@ namespace Server
 {
     class Program
     {
-
+        //В планировщике задач windows настроить ежемесячную задачу которая запускает эту программу раз в месяц
         static void Main(string[] args)
         {
-             // устанавливаем метод обратного вызова
-             TimerCallback tm = SendingStoriesInThePastMonth;
-             // создаем таймер
-             Timer timer = new Timer(tm, null, 0, 30*24*60*10000); //раз в месяц
-
-             Console.ReadLine();
+            SendingStoriesInThePastMonth();
         }
 
-        public static void SendingStoriesInThePastMonth(object obj)
+        public static void SendingStoriesInThePastMonth()
         {
-            var json = new JsonMessage {Type = "GetHistory"};
+            var json = new JsonMessage { Type = "GetHistory" };
             var connect = new ConnectWithDB();
-            var message =  connect.Connect(JsonConvert.SerializeObject(json));
+            var message = connect.Connect(JsonConvert.SerializeObject(json));
             if (message == "error")
             {
                 System.Threading.Thread.Sleep(50000);
-                SendingStoriesInThePastMonth(null);
+                SendingStoriesInThePastMonth();
                 return;
             }
             json = JsonConvert.DeserializeObject<JsonMessage>(message);
             var messageBody = MessageBodyFormation(json.History);
             SendMail("smtp.gmail.com", "tasiamenkina@gmail.com", "14091974NatA", "tasiamenkina@gmail.com", "Передвижение оборудования за месяц", messageBody);
         }
-        public static void NewEndeavor() { }
 
         public static string MessageBodyFormation(List<HistoryEquipment> history )
         {

@@ -8,39 +8,6 @@ using Newtonsoft.Json;
 
 namespace DataBase
 {
-    class EquipmentJson
-    {
-        public string InventoryNumber { get; set; }
-        public string OldInventoryNumber { get; set; }
-        public string denomination { get; set; }///
-        public string mark { get; set; }///
-        public string model { get; set; }
-        public string Comment { get; set; }
-        public bool Modernization { get; set; }
-        public string Responsible { get; set; }//
-        public string WhoUses { get; set; }//                              
-        public string Status { get; set; }//
-        public string City { get; set; }
-        public int Floor { get; set; }
-        public string Housing { get; set; }
-        public string Cabinet { get; set; }
-    }
-
-    class JsonMessage
-    {
-        public string Type;
-        public List<EquipmentJson> equipment;
-        public string InventoryNumber;
-        public string NewStatus;
-        public List<string> citiesFilters;
-        public List<string> denominationFilter;
-        public List<string> markFilter;
-        public List<string> statusFilter;
-        public List<string> responsibleFilter;
-        public bool modernizationFilter;
-    }
-
-
     class ClientObject
     {
         public TcpClient client;
@@ -74,7 +41,26 @@ namespace DataBase
                     var jsonmsg = JsonConvert.DeserializeObject<JsonMessage>(message);
                     switch (jsonmsg.Type)
                     {
+                        case "GetHistory":
+                        {
+                            var list = Get.History();
 
+                            var json = new JsonMessage();
+                                json.History= new List<HistoryEquipment>();
+                            foreach (var item in list)
+                            {
+                                var equip = new HistoryEquipment
+                                {
+                                    InventoryNumber = item.InventNumber,
+                                    NewStatus = item.NewStatus.Naming,
+                                    OldStatus = item.OldStatus.Naming
+                                };
+                                json.History.Add(equip);
+                            }
+
+                            message = JsonConvert.SerializeObject(json);
+                        }
+                        break;
                         case "Marks": message = ArrayObjectToString(Get.Marks()); break;
                         case "Denomination": message = ArrayObjectToString(Get.Denominations()); break;
                         case "City": message = ArrayObjectToString(Get.City()); break;
@@ -101,7 +87,7 @@ namespace DataBase
                             {
                                 var list = Get.Equipments(jsonmsg.InventoryNumber);
                                 
-                                var json = new JsonMessage { equipment = list.ConvertAll(new Converter<Equipment, EquipmentJson>(TranslateJson)) };
+                                var json = new JsonMessage { equipment = list.ConvertAll(TranslateJson) };
 
                                 message = JsonConvert.SerializeObject(json);
                             }
@@ -113,7 +99,7 @@ namespace DataBase
                                     jsonmsg.markFilter, jsonmsg.statusFilter, jsonmsg.responsibleFilter,
                                     jsonmsg.modernizationFilter);
                                 
-                                var json = new JsonMessage { equipment = list.ConvertAll(new Converter<Equipment, EquipmentJson>(TranslateJson)) };
+                                var json = new JsonMessage { equipment = list.ConvertAll(TranslateJson) };
 
                                 message = JsonConvert.SerializeObject(json);
                             }

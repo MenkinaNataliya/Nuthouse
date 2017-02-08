@@ -1,130 +1,110 @@
-﻿@model WebApplication.Models.Equipment
+﻿@using System.Collections
+@model WebApplication.Models.Report
 
 @{
-    ViewBag.Title = "Report";
+    ViewBag.Title = "Отчет";
 }
 
-<h2>Report</h2>
+<h2>Создание отчета</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Выберите фильтры</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="form-group col-md-5">
+                @Html.LabelFor(model => model.FilterDenominations, htmlAttributes: new { @class = "control-label col-md-3", })
+                <div class="checkbox-inline" style="width: 45px">
+                    @Html.ListBoxFor(model => model.FilterDenominations, new MultiSelectList((IEnumerable)ViewBag.FilterDenominations))
+                </div>
+            </div>
+
+            <div class="form-group col-md-5">
+                @Html.LabelFor(model => model.FilterMarks, htmlAttributes: new { @class = "control-label col-md-3", })
+                <div class="checkbox-inline" style="width: 45px">
+                    @Html.ListBoxFor(model => model.FilterMarks, new MultiSelectList((IEnumerable)ViewBag.FilterMarks))
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group col-md-5" >
+                @Html.LabelFor(model => model.FilterStatus, htmlAttributes: new { @class = "control-label col-md-3", })
+                <div class="checkbox-inline" style="width: 45px">
+                    @Html.ListBoxFor(model => model.FilterStatus, new MultiSelectList(new[] { "В работе", "В ремоне", "Списано" }))
+                </div>
+            </div>
+
+            <div class="form-group col-md-5">
+                @Html.LabelFor(model => model.FilterModernisation, htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="radio-inline">
+                    @Html.RadioButtonFor(model => model.FilterModernisation, "whatever", true)<span>Не важно</span> <br />
+                    @Html.RadioButtonFor(model => model.FilterModernisation, "true")<span>Да</span> <br />
+                    @Html.RadioButtonFor(model => model.FilterModernisation, "false")<span>Нет</span> <br />
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group col-md-5">
+                @Html.LabelFor(model => model.FilterCities, htmlAttributes: new { @class = "control-label col-md-3", })
+                <div class="checkbox-inline" style="width: 45px">
+                    @Html.ListBoxFor(model => model.FilterCities, new MultiSelectList((IEnumerable)ViewBag.FilterCities))
+                </div>
+            </div>
+
+            <div class="form-group col-md-5">
+                @Html.LabelFor(model => model.FilterResponsibles, htmlAttributes: new { @class = "control-label col-md-3", })
+                <div class="checkbox-inline">
+                    @Html.ListBoxFor(model => model.FilterResponsibles, new MultiSelectList((IEnumerable)ViewBag.FilterResponsibles),  htmlAttributes: new { @class = "responsible" })
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
 
 <div>
-    <h4>Equipment</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.InventoryNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.InventoryNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OldInventoryNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OldInventoryNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Denomination)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Denomination)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Mark)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Mark)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Modernization)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Modernization)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Housing)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Housing)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Floor)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Floor)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Cabinet)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Cabinet)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Responsible)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Responsible)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.WhoUses)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WhoUses)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Comment)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
-</p>
+</div>
+
+<style>
+     
+     input, button, select, textarea {
+         display: block;
+        
+         height: 34px;
+         padding: 6px 12px;
+         font-size: 14px;
+         line-height: 1.428571429;
+         color: #555;
+         vertical-align: middle;
+         background-color: #fff;
+         border: 1px solid #ccc;
+         border-radius: 4px;
+     }
+     input[type=radio] {
+        width: 15px;
+        height: 15px
+    }
+   
+    select {
+        width: 150px
+    }
+
+    .responsible {
+        width: 250px}
+
+</style>
+

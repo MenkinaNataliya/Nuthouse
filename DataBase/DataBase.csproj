@@ -70,6 +70,7 @@
     <Compile Include="Equipment.cs" />
     <Compile Include="DbModel.cs" />
     <Compile Include="Get.cs" />
+    <Compile Include="JsonClasses.cs" />
     <Compile Include="Migrations\201701271737091_AddTable.cs" />
     <Compile Include="Migrations\201701271737091_AddTable.Designer.cs">
       <DependentUpon>201701271737091_AddTable.cs</DependentUpon>

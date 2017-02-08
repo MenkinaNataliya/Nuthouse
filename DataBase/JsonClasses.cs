@@ -37,7 +37,7 @@ namespace DataBase
         public List<EquipmentJson> equipment;
         public string InventoryNumber;
         public List<HistoryEquipment> History;
-        public string OldStatus;
+        public string NewStatus;
         public List<string> citiesFilters;
         public List<string> denominationFilter;
         public List<string> markFilter;

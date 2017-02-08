@@ -12,7 +12,6 @@ namespace WebApplication.Models
         [Display(Name = "Инвентарный номер")]
         public string InventoryNumber { get; set; }
 
-        [Required(ErrorMessage = "Поле должно быть установлено")]
         [Display(Name = "Старый инвентарный номер")]
         public string OldInventoryNumber { get; set; }
 

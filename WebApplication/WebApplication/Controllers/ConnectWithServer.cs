@@ -26,7 +26,7 @@ namespace WebApplication.Controllers
                 stream.Write(data, 0, data.Length);
 
                 // получаем ответ
-                data = new byte[64]; // буфер для получаемых данных
+                data = new byte[1024]; // буфер для получаемых данных
                 StringBuilder builder = new StringBuilder();
                 int bytes = 0;
                 do
@@ -65,19 +65,28 @@ namespace WebApplication.Controllers
             return items.Equipment;
 
         }
-        public string[] GetCity()
+
+        public string ChangeStatus(string inventNum, string status)
+        {
+            var json = new JsonMessage { Type = "ChangeStatus", InventoryNumber = inventNum, NewStatus = status };
+            return Connect(JsonConvert.SerializeObject(json));
+        }
+
+        public string[] Get(string type)
         {
 
-            var json = new JsonMessage { Type = "City" };
+            var json = new JsonMessage { Type = type };
             return Connect(JsonConvert.SerializeObject(json)).Split(',');
         }
 
     }
     class JsonMessage
     {
+
         public string Type;
         public List<Equipment> Equipment;
         public string InventoryNumber;
+       // public List<HistoryEquipment> History;
         public string NewStatus;
         public List<string> citiesFilters;
         public List<string> denominationFilter;
