@@ -11,18 +11,18 @@ namespace DesktopApplication
    
     public partial class Report : Form
     {
-        List<Equipment> equips;
+        List<Equipment> _equips;
 
 
-        public Report(List<string> citiesFilters, List<string> denominationFilter, List<string> markFilter, List<string> statusFilter, List<string> responsibleFilter, bool modernizationFilter)
+        public Report(ReportJson reportFilter)
         {
             InitializeComponent();
-            InitializeForm(citiesFilters, denominationFilter, markFilter, statusFilter, responsibleFilter, modernizationFilter);
+            InitializeForm(reportFilter);
         }
-        public void InitializeForm(List<string> citiesFilters, List<string> denominationFilter, List<string> markFilter, List<string> statusFilter, List<string> responsibleFilter, bool modernizationFilter)
+        public void InitializeForm(ReportJson reportFilter)
         {
             ConnectWithServer connect = new ConnectWithServer();
-            equips = connect.GetReport(citiesFilters, denominationFilter, markFilter, statusFilter, responsibleFilter, modernizationFilter);
+            _equips = connect.GetReport(reportFilter);
 
 
             System.Data.DataTable t = new System.Data.DataTable();
@@ -35,7 +35,7 @@ namespace DesktopApplication
             t.Columns.Add("Статус");
             t.Columns.Add("Примечание");
 
-            foreach(var equip in equips)
+            foreach(var equip in _equips)
             {
                 t.Rows.Add(equip.InventoryNumber, equip.OldInventoryNumber, equip.denomination,
                                 equip.mark, equip.City + "" + equip.Housing, equip.Responsible,
@@ -61,7 +61,7 @@ namespace DesktopApplication
             ObjExcel.StandardFontSize = 14;
 
 
-            Microsoft.Office.Interop.Excel.Range excelcells = ObjWorkSheet.get_Range("C2", "F2");
+            var excelcells = ObjWorkSheet.Range["C2", "F2"];
             excelcells.Merge(Type.Missing);
             excelcells.HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
             excelcells.VerticalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
@@ -80,12 +80,12 @@ namespace DesktopApplication
             ObjWorkSheet.Cells[5, 7] = "Статус";
             ObjWorkSheet.Cells[5, 8] = "Примечание";
 
-            excelcells = ObjWorkSheet.get_Range("A5", "H5");
+            excelcells = ObjWorkSheet.Range["A5", "H5"];
             excelcells.Font.Bold = true;
 
 
             int j = 6;
-            foreach (var equip in equips)
+            foreach (var equip in _equips)
             {
                 ObjWorkSheet.Cells[j, 1] = equip.InventoryNumber;
                 ObjWorkSheet.Cells[j, 2] = equip.OldInventoryNumber;

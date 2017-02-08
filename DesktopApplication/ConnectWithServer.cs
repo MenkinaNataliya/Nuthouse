@@ -94,19 +94,9 @@ namespace DesktopApplication
             return Connect(JsonConvert.SerializeObject(json));
         }
 
-        public List<Equipment> GetReport(List<string> citiesFilters, List<string> denominationFilter,
-            List<string> markFilter, List<string> statusFilter, List<string> responsibleFilter, bool modernizationFilter)
+        public List<Equipment> GetReport(ReportJson reportFilter)
         {
-            var json = new JsonMessage
-            {
-                citiesFilters = citiesFilters,
-                denominationFilter = denominationFilter,
-                markFilter = markFilter,
-                modernizationFilter = modernizationFilter,
-                responsibleFilter = responsibleFilter,
-                statusFilter = statusFilter,
-                Type = "GetReport"
-            };
+            var json = new JsonMessage {Type = "GetRwport", ReportFilter = reportFilter};
             var list = Connect(JsonConvert.SerializeObject(json));
             var items = JsonConvert.DeserializeObject<JsonMessage>(list);
             return items.equipment;
@@ -118,12 +108,7 @@ namespace DesktopApplication
         public List<Equipment> equipment;
         public string InventoryNumber;
         public string NewStatus;
-        public List<string> citiesFilters;
-        public List<string> denominationFilter;
-        public List<string> markFilter;
-        public List<string> statusFilter;
-        public List<string> responsibleFilter;
-        public bool modernizationFilter;
+        public ReportJson ReportFilter;
 
     }
 }

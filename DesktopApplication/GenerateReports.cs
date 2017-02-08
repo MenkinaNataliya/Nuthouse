@@ -35,41 +35,26 @@ namespace DesktopApplication
         {
             this.Close();
 
+            var filterReport = new ReportJson();
 
-            var citiesFilters = new List<string>();
             foreach (var city in Cities.CheckedItems)
-            {
-                citiesFilters.Add(city.ToString());
-            }
+                filterReport.FilterCities.Add(city.ToString());
 
-            var denominationFilter = new List<string>();
             foreach (var denom in Denominations.CheckedItems)
-            {
-                denominationFilter.Add(denom.ToString());
-            }
+                filterReport.FilterDenominations.Add(denom.ToString());
 
-            var markFilter = new List<string>();
             foreach (var mark in Marks.CheckedItems)
-            {
-                markFilter.Add(mark.ToString());
-            }
+                filterReport.FilterMarks.Add(mark.ToString());
 
-            var statusFilter = new List<string>();
             foreach (var status in Status.CheckedItems)
-            {
-                statusFilter.Add(status.ToString());
-            }
+                filterReport.FilterStatus.Add(status.ToString());
 
-            var responsibleFilter = new List<string>();
             foreach (var resp in Responsible.CheckedItems)
-            {
-                responsibleFilter.Add(resp.ToString());
-            }
+                filterReport.FilterResponsibles.Add(resp.ToString());
 
-         
-            var modernizationFilter = Modernisation.Checked;
+            filterReport.FilterModernisation = Modernisation.Checked.ToString();
 
-            var report = new Report(citiesFilters, denominationFilter, markFilter, statusFilter, responsibleFilter, modernizationFilter);
+            var report = new Report(filterReport);
             report.Activate();
 
             report.ShowDialog();

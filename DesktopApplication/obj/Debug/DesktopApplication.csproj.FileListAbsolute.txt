@@ -77,8 +77,8 @@ C:\Users\Наталия\Documents\Учеба\Nuthouse1\DeskApp\DesktopApplicatio
 C:\Users\Наталия\Documents\Учеба\Nuthouse1\DeskApp\DesktopApplication\obj\Debug\DesktopApplication.Properties.Resources.resources
 C:\Users\Наталия\Documents\Учеба\Nuthouse1\DeskApp\DesktopApplication\obj\Debug\DesktopApplication.csproj.GenerateResource.Cache
 C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\DesktopApplication.exe.config
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.exe
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.pdb
+C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\DesktopApplication.exe
+C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\DesktopApplication.pdb
 C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.csprojResolveAssemblyReference.cache
 C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.AddEquipment.resources
 C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.ChangeStatus.resources
@@ -88,10 +88,5 @@ C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Deb
 C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.GenerateReports.resources
 C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.Properties.Resources.resources
 C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.csproj.GenerateResource.Cache
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\DesktopApplication.exe
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\DesktopApplication.pdb
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\EntityFramework.xml
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\ru\EntityFramework.resources.dll
-C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.exe
+C:\Users\Наталия\Documents\Учеба\Nuthouse\DesktopApplication\obj\Debug\DesktopApplication.pdb
