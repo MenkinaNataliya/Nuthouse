@@ -72,6 +72,18 @@ namespace WebApplication.Controllers
             return Connect(JsonConvert.SerializeObject(json));
         }
 
+        public List<Equipment> GetReport(Report report)
+        {
+            var json = new JsonMessage
+            {
+                Type = "GetReport",
+                ReportFilters = report
+            };
+            var list = Connect(JsonConvert.SerializeObject(json));
+            var items = JsonConvert.DeserializeObject<JsonMessage>(list);
+            return items.Equipment;
+        }
+
         public string[] Get(string type)
         {
 
@@ -88,12 +100,7 @@ namespace WebApplication.Controllers
         public string InventoryNumber;
        // public List<HistoryEquipment> History;
         public string NewStatus;
-        public List<string> citiesFilters;
-        public List<string> denominationFilter;
-        public List<string> markFilter;
-        public List<string> statusFilter;
-        public List<string> responsibleFilter;
-        public bool modernizationFilter;
-
+        public Report ReportFilters;
+        
     }
 }

@@ -65,6 +65,16 @@ namespace WebApplication.Controllers
            
             return View(connect.GetEquipments(""));
         }
+        [HttpGet]
+        public ActionResult Equipments(string id)
+        {
+            var connect = new ConnectWithServer();
+            ViewBag.FilterDenominations = connect.Get("Denomination");
+            ViewBag.FilterCities = connect.Get("City");
+            ViewBag.FilterMarks = connect.Get("Marks");
+            ViewBag.FilterResponsibles = connect.Get("Employee");
+            return View(connect.GetEquipments(id));
+        }
 
         [HttpGet]
         public ActionResult Report()
@@ -80,7 +90,8 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Report(Report report)
         {
-            var x = report.FilterModernisation;
+            var connect = new ConnectWithServer();
+            connect.GetReport(report);
             return View();
         }
 
@@ -96,7 +107,7 @@ namespace WebApplication.Controllers
             ViewBag.Marks = connect.Get("Marks");
             ViewBag.Employees = connect.Get("Employee");
            
-            return View(connect.GetEquipments(id)[0]);
+            return View(connect.GetEquipments(id));
         }
 
         [HttpPost]
@@ -124,7 +135,7 @@ namespace WebApplication.Controllers
         [HttpPost]
         public ActionResult Status(Equipment equip)
         {
-            return Redirect("Change/" + equip.InventoryNumber);
+            return Redirect("Equipments/" + equip.InventoryNumber);
         }
 
 

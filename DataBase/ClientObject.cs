@@ -27,15 +27,15 @@ namespace DataBase
                 while (true)
                 {
                     // получаем сообщение
-                    StringBuilder builder = new StringBuilder();
-                    int bytes = 0;
+                    var builder = new StringBuilder();
+                    var bytes = 0;
                     do
                     {
                         bytes = stream.Read(data, 0, data.Length);
                         builder.Append(Encoding.Unicode.GetString(data, 0, bytes));
                     } while (stream.DataAvailable);
 
-                    string message = builder.ToString();
+                    var message = builder.ToString();
 
                     Console.WriteLine(message);
                     var jsonmsg = JsonConvert.DeserializeObject<JsonMessage>(message);
@@ -45,8 +45,7 @@ namespace DataBase
                         {
                             var list = Get.History();
 
-                            var json = new JsonMessage();
-                                json.History= new List<HistoryEquipment>();
+                            var json = new JsonMessage {History = new List<HistoryEquipment>()};
                             foreach (var item in list)
                             {
                                 var equip = new HistoryEquipment
@@ -60,49 +59,56 @@ namespace DataBase
 
                             message = JsonConvert.SerializeObject(json);
                         }
-                        break;
-                        case "Marks": message = ArrayObjectToString(Get.Marks()); break;
-                        case "Denomination": message = ArrayObjectToString(Get.Denominations()); break;
-                        case "City": message = ArrayObjectToString(Get.City()); break;
-                        case "Employee":
-                            {
-                                var list = Get.Employee();
-                                message = "";
-                                foreach (var item in list)
-                                {
-                                    message += item.FirstName + " " + item.SecondName + " " + item.LastName + ",";
-                                }
-                                message.Remove(message.Length - 1);
-                            }
                             break;
-
-                        case "AddEquipment":
+                        case "Marks":
+                            message = ArrayObjectToString(Get.Marks());
+                            break;
+                        case "Denomination":
+                            message = ArrayObjectToString(Get.Denominations());
+                            break;
+                        case "City":
+                            message = ArrayObjectToString(Get.City());
+                            break;
+                        case "Employee":
+                        {
+                            var list = Get.Employee();
+                            message = "";
+                            foreach (var item in list)
                             {
-                                var error = Service.AddEquipment(Translate(jsonmsg.equipment[0]));
-
-                                message = error == "" ? "Данные добавлены успешно" : "Устройство с таким инвентарным номером уже существует";
+                                message += item.LastName + " "+ item.FirstName + " " + item.SecondName + ",";
                             }
+                            message.Remove(message.Length - 1);
+                        }
+                            break;
+                        case "AddEquipment":
+                        {
+                            var error = Service.AddEquipment(Translate(jsonmsg.Equipment[0]));
+
+                            message = error == ""
+                                ? "Данные добавлены успешно"
+                                : "Устройство с таким инвентарным номером уже существует";
+                        }
                             break;
                         case "GetEquipment":
-                            {
-                                var list = Get.Equipments(jsonmsg.InventoryNumber);
-                                
-                                var json = new JsonMessage { equipment = list.ConvertAll(TranslateJson) };
+                        {
+                            var list = Get.Equipments(jsonmsg.InventoryNumber);
 
-                                message = JsonConvert.SerializeObject(json);
-                            }
+                            var json = new JsonMessage {Equipment = list.ConvertAll(TranslateJson)};
+
+                            message = JsonConvert.SerializeObject(json);
+                        }
                             break;
-                        case "ChangeStatus": Service.ChangeStatus(jsonmsg.InventoryNumber, jsonmsg.NewStatus); break;
+                        case "ChangeStatus":
+                            Service.ChangeStatus(jsonmsg.InventoryNumber, jsonmsg.NewStatus);
+                            break;
                         case "GetReport":
-                            {
-                                var list = Get.Equipments(jsonmsg.citiesFilters, jsonmsg.denominationFilter,
-                                    jsonmsg.markFilter, jsonmsg.statusFilter, jsonmsg.responsibleFilter,
-                                    jsonmsg.modernizationFilter);
-                                
-                                var json = new JsonMessage { equipment = list.ConvertAll(TranslateJson) };
+                        {
+                            var list = Get.Equipments(jsonmsg.ReportFilter);
 
-                                message = JsonConvert.SerializeObject(json);
-                            }
+                            var json = new JsonMessage {Equipment = list.ConvertAll(TranslateJson)};
+
+                            message = JsonConvert.SerializeObject(json);
+                        }
                             break;
                     }
                     data = Encoding.Unicode.GetBytes(message);
@@ -115,10 +121,8 @@ namespace DataBase
             }
             finally
             {
-                if (stream != null)
-                    stream.Close();
-                if (client != null)
-                    client.Close();
+                stream?.Close();
+                client?.Close();
             }
 
         }
@@ -139,9 +143,9 @@ namespace DataBase
             {
                 InventoryNumber = eq.InventoryNumber,
                 OldInventoryNumber = eq.OldInventoryNumber,
-                denomination = eq.denomination.Naming,
-                mark = eq.mark.Naming,
-                model = eq.model,
+                Denomination = eq.denomination.Naming,
+                Mark = eq.mark.Naming,
+                Model = eq.model,
                 Comment = eq.Comment,
                 Modernization = eq.Modernization,
                 Responsible = eq.Responsible.LastName+" " + eq.Responsible.FirstName+" "+eq.Responsible.SecondName ,
@@ -163,9 +167,9 @@ namespace DataBase
                 {
                     InventoryNumber = eq.InventoryNumber,
                     OldInventoryNumber = eq.OldInventoryNumber,
-                    denomination = new Denomination { Naming = eq.denomination},
-                    mark =new Mark {Naming =  eq.mark},
-                    model = eq.model,
+                    denomination = new Denomination { Naming = eq.Denomination},
+                    mark =new Mark {Naming =  eq.Mark},
+                    model = eq.Model,
                     Comment = eq.Comment,
                     Modernization = eq.Modernization,
                     Responsible = new Employee { LastName = resp[0], FirstName = resp[1], SecondName = resp[2]},

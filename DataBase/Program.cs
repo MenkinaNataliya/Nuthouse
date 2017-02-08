@@ -23,11 +23,11 @@ namespace DataBase
 
                 while (true)
                 {
-                    TcpClient client = listener.AcceptTcpClient();
-                    ClientObject clientObject = new ClientObject(client);
+                    var client = listener.AcceptTcpClient();
+                    var clientObject = new ClientObject(client);
 
                     // создаем новый поток для обслуживания нового клиента
-                    Thread clientThread = new Thread(new ThreadStart(clientObject.Process));
+                    var clientThread = new Thread(new ThreadStart(clientObject.Process));
                     clientThread.Start();
                 }
             }
@@ -37,8 +37,7 @@ namespace DataBase
             }
             finally
             {
-                if (listener != null)
-                    listener.Stop();
+                listener?.Stop();
             }
         }
     }

@@ -11,7 +11,7 @@ namespace DesktopApplication
 {
     public class ConnectWithServer
     {
-        const int port = 8870;
+        const int port = 8888;
         const string address = "192.168.0.103";
         static TcpClient client = new TcpClient(address, port);
         public string Connect(string message)
@@ -88,6 +88,7 @@ namespace DesktopApplication
 
         }
 
+
         public string ChangeStatus(string inventNum, string status)
         {
             var json = new JsonMessage { Type = "ChangeStatus", InventoryNumber = inventNum,  NewStatus = status};
@@ -96,7 +97,7 @@ namespace DesktopApplication
 
         public List<Equipment> GetReport(ReportJson reportFilter)
         {
-            var json = new JsonMessage {Type = "GetRwport", ReportFilter = reportFilter};
+            var json = new JsonMessage {Type = "GetReport", ReportFilter = reportFilter};
             var list = Connect(JsonConvert.SerializeObject(json));
             var items = JsonConvert.DeserializeObject<JsonMessage>(list);
             return items.equipment;

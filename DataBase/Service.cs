@@ -41,7 +41,7 @@ namespace DataBase
                     Cabinet = equip.Cabinet,
                     status = db.status.FirstOrDefault(x => x.Naming == equip.status.Naming)
                 };
-                db.Equipments.Add(equip);
+                db.Equipments.Add(res);
                 db.SaveChanges();
                 return "";
             }
@@ -158,11 +158,6 @@ namespace DataBase
         {
             using (var db = new DbModel())
             {
-
-              /*  var name = employ.Split(' ');
-                var first = name[1];
-                var sec = name[0];
-                var las = name[2];*/
                 if (
                     db.Employees.FirstOrDefault(x => x.SecondName == employ.SecondName && x.LastName == employ.LastName && x.FirstName == employ.FirstName) !=
                     null) return;

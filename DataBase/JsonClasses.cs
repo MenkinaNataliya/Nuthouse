@@ -8,20 +8,20 @@ namespace DataBase
 {
     class EquipmentJson
     {
-        public string InventoryNumber { get; set; }
-        public string OldInventoryNumber { get; set; }
-        public string denomination { get; set; }///
-        public string mark { get; set; }///
-        public string model { get; set; }
-        public string Comment { get; set; }
-        public bool Modernization { get; set; }
-        public string Responsible { get; set; }//
-        public string WhoUses { get; set; }//                              
-        public string Status { get; set; }//
-        public string City { get; set; }
-        public int Floor { get; set; }
-        public string Housing { get; set; }
-        public string Cabinet { get; set; }
+        public string InventoryNumber;
+        public string OldInventoryNumber;
+        public string Denomination;
+        public string Mark;
+        public string Model;
+        public string Comment;
+        public bool Modernization;
+        public string Responsible;
+        public string WhoUses;
+        public string Status;
+        public string City;
+        public int Floor;
+        public string Housing;
+        public string Cabinet;
     }
 
     class HistoryEquipment
@@ -34,16 +34,23 @@ namespace DataBase
     class JsonMessage
     {
         public string Type;
-        public List<EquipmentJson> equipment;
+        public List<EquipmentJson> Equipment;
         public string InventoryNumber;
         public List<HistoryEquipment> History;
         public string NewStatus;
-        public List<string> citiesFilters;
-        public List<string> denominationFilter;
-        public List<string> markFilter;
-        public List<string> statusFilter;
-        public List<string> responsibleFilter;
-        public bool modernizationFilter;
+        public Report ReportFilter;
+
+    }
+
+    public class Report
+    {
+        public List<string> FilterCities;
+        public List<string> FilterResponsibles;
+        public List<string> FilterStatus;
+        public List<string> FilterDenominations;
+        public string FilterModernisation;
+        public List<string> FilterMarks;
+
     }
 
 }

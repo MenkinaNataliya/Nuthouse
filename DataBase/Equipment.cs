@@ -16,7 +16,6 @@ namespace DataBase
         public Denomination denomination { get; set; }
         public Mark mark { get; set; }
         public string model { get; set; }
-       
         public string Comment{get;set;}
         public bool Modernization { get; set; }
         public Employee Responsible{ get; set; }
