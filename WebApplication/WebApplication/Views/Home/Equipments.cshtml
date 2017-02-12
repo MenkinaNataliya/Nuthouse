@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<WebApplication.Models.Equipment>
 
 @{
-    ViewBag.Title = "Equipments";
+    ViewBag.Title = "Все устройства";
 }
 
-<h2>Equipments</h2>
+<h2>Все устройства</h2>
 
 <p>
     @Html.ActionLink("Создать новое устройство", "AddEquipment")
 </p>
+<h3 class="text-success">@ViewBag.SuccessMessage</h3>
 <table class="table">
     <tr>
         <th>@Html.DisplayNameFor(model => model.InventoryNumber)</th>
@@ -44,7 +45,7 @@
         <td>@Html.DisplayFor(modelItem => item.Responsible)</td>
         <td>@Html.DisplayFor(modelItem => item.WhoUses)</td>
         <td>@Html.DisplayFor(modelItem => item.Comment)</td>
-        <td>@Html.ActionLink("Изменить статус", "Change", new {  id=item.InventoryNumber })</td>
+        <td>@Html.ActionLink("Изменить статус", "Change", new {  id=item.InventoryNumber, oldId = item.OldInventoryNumber})</td>
     </tr>
 }
 

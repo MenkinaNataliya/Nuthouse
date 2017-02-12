@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using DataBase;
 
 namespace WebApplication.Models
 {
+
+
     public class Equipment
     {
         [Required(ErrorMessage = "Поле должно быть установлено")]

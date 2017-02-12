@@ -26,5 +26,15 @@ namespace WebApplication.Models
         [Display(Name = "Марки")]
         public List<string> FilterMarks { get; set; }
 
+        public Report()
+        {
+            FilterCities = new List<string>();
+            FilterResponsibles = new List<string>();
+            FilterStatus = new List<string>();
+            FilterDenominations = new List<string>();
+            FilterMarks = new List<string>();
+            FilterModernisation = "";
+        }
+
     }
 }

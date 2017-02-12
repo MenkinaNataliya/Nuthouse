@@ -52,3 +52,11 @@ C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplicat
 C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\obj\Debug\WebApplication.csprojResolveAssemblyReference.cache
 C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\obj\Debug\WebApplication.dll
 C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\obj\Debug\WebApplication.pdb
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\DataBase.dll
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\EntityFramework.dll
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\DataBase.pdb
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\EntityFramework.xml
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\EntityFramework.SqlServer.dll
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\EntityFramework.SqlServer.xml
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\ru\EntityFramework.resources.dll
+C:\Users\Наталия\Documents\Учеба\Nuthouse\WebApplication\WebApplication\bin\ru\EntityFramework.SqlServer.resources.dll

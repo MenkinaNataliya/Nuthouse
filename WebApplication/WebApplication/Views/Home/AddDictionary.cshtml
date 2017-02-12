@@ -1,0 +1,102 @@
+﻿@model DataBase.Dictionary
+
+
+@{
+    ViewBag.Title = "Словарь";
+}
+
+<h2>Добавление данных в словарь</h2>
+<h3 class="text-success">@ViewBag.SuccessMessage</h3>
+<h3 class="text-danger">@ViewBag.ErrorMessage</h3>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+    <br>
+        <h4>Добавление нового наименования</h4>
+        <hr/>
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.denomination, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.EditorFor(Model => Model.denomination.Naming, new {htmlAttributes = new {@class = "form-control"}})
+                @Html.ValidationMessageFor(Model => Model.denomination.Naming, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Добавить новое наименование" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <br>
+        <h4>Добавление нового сотрудника</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.employee.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Model => Model.employee.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(Model => Model.employee.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.employee.SecondName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Model => Model.employee.SecondName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(Model => Model.employee.SecondName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.employee.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Model => Model.employee.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(Model => Model.employee.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Добавить нового сотрудника" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <br>
+        <h4>Добавление новой марки</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(Model => Model.mark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(Model => Model.mark.Naming, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(Model => Model.mark.Naming, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Добавить новую марку" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}

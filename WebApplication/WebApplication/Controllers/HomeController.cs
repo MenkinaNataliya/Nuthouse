@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.ModelBinding;
-using System.Web.Mvc;
-using System.Xml.Linq;
-using Newtonsoft.Json;
+﻿using System.Web.Mvc;
+using DataBase;
 using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Home
         public ActionResult Index()
         {
             return View();
@@ -21,32 +14,32 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult AddEquipment()
         {
-            var connect = new ConnectWithServer();
-            ViewBag.Denominations = connect.Get("Denomination");
-            ViewBag.Cities = connect.Get("City");
-            ViewBag.Marks = connect.Get("Marks");
-            ViewBag.Employees = connect.Get("Employee");
+            var service = new WebService();
+            ViewBag.Denominations = service.GetNaminStrings( Get.Denominations());
+            ViewBag.Cities = service.GetNaminStrings(Get.City());
+            ViewBag.Marks = service.GetNaminStrings(Get.Marks());
+            ViewBag.Employees = service.GetEmployeeString(Get.Employee());
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddEquipment(Equipment equip)
+        public ActionResult AddEquipment(Models.Equipment equip)
         {
-            var connect = new ConnectWithServer();
-            ViewBag.Denominations = connect.Get("Denomination");
-            ViewBag.Cities = connect.Get("City");
-            ViewBag.Marks = connect.Get("Marks");
-            ViewBag.Employees = connect.Get("Employee");
+            var service = new WebService();
+            ViewBag.Denominations = service.GetNaminStrings(Get.Denominations());
+            ViewBag.Cities = service.GetNaminStrings(Get.City());
+            ViewBag.Marks = service.GetNaminStrings(Get.Marks());
+            ViewBag.Employees = service.GetEmployeeString(Get.Employee());
 
             if (ModelState.IsValid)
             {
                
-                var error = connect.SetInformation(equip);
+                var error = Service.AddEquipment(service.Translate(equip));
                 if (error == "Данные добавлены успешно")
                 {
                     ViewBag.SuccessMessage = "Устройство добавлено успешно";
-                    return View(new Equipment());
+                    return View(new Models.Equipment());
 
                 }
                 ViewBag.Message = error;
@@ -54,75 +47,78 @@ namespace WebApplication.Controllers
             }
             ViewBag.Message = "Данные введены неверно. Попробуйте снова";
             return View(equip);
-            //return View();
         }
 
-
         [HttpGet]
-        public ActionResult Equipments()
+        public ActionResult Equipments(string id="-1")
         {
-            var connect = new ConnectWithServer();
-           
-            return View(connect.GetEquipments(""));
+             var service = new WebService();
+            return View(Get.Equipments(id).ConvertAll(service.TransletFromModel));
         }
         [HttpGet]
-        public ActionResult Equipments(string id)
+        public ActionResult Password()
         {
-            var connect = new ConnectWithServer();
-            ViewBag.FilterDenominations = connect.Get("Denomination");
-            ViewBag.FilterCities = connect.Get("City");
-            ViewBag.FilterMarks = connect.Get("Marks");
-            ViewBag.FilterResponsibles = connect.Get("Employee");
-            return View(connect.GetEquipments(id));
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Password(Users user)
+        {
+            var error = Service.CheckUser(user);
+            if (error == "ok") return RedirectToAction("AddDictionary");
+            ViewBag.MessageError = error;
+            return View();
         }
 
         [HttpGet]
         public ActionResult Report()
         {
-            var connect = new ConnectWithServer();
-            ViewBag.FilterDenominations = connect.Get("Denomination");
-            ViewBag.FilterCities = connect.Get("City");
-            ViewBag.FilterMarks = connect.Get("Marks");
-            ViewBag.FilterResponsibles = connect.Get("Employee");
+            var service = new WebService();
+            ViewBag.FilterDenominations = service.GetNaminStrings(Get.Denominations());
+            ViewBag.FilterCities = service.GetNaminStrings(Get.City());
+            ViewBag.FilterMarks = service.GetNaminStrings(Get.Marks());
+            ViewBag.FilterResponsibles = service.GetEmployeeString(Get.Employee());
             return View();
         }
 
         [HttpPost]
-        public ActionResult Report(Report report)
+        public ActionResult Report(Models.Report report)
         {
-            var connect = new ConnectWithServer();
-            connect.GetReport(report);
-            return View();
+            var service = new WebService();
+            var list = Get.Equipments(service.TranslateReport(report));
+            return View("Equipments", list.ConvertAll(service.TransletFromModel));
         }
 
-
-
-        
         [HttpGet]
-        public ActionResult Change( string id)
+        public ActionResult AddDictionary()
         {
-            var connect = new ConnectWithServer();
-            ViewBag.Denominations = connect.Get("Denomination");
-            ViewBag.Cities = connect.Get("City");
-            ViewBag.Marks = connect.Get("Marks");
-            ViewBag.Employees = connect.Get("Employee");
-           
-            return View(connect.GetEquipments(id));
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult AddDictionary(Dictionary  dic)
+        {
+            var error = Service.AddDictionary(dic);
+            if (error == "OK") ViewBag.SuccessMessage = "Добавление прошло успешно";
+            else ViewBag.ErrorMessage = error;
+            return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Change( string id, string oldId)
+        {
+            var service = new WebService();
+            ViewBag.Employees = service.GetEmployeeString(Get.Employee());
+            return View(service.TransletFromModel(Get.Equipments(id, oldId)));
         }
 
         [HttpPost]
-        public ActionResult Change(Equipment equip)
+        public ActionResult Change(Models.Equipment equip)
         {
-            var connect = new ConnectWithServer();
-            ViewBag.Denominations = connect.Get("Denomination");
-            ViewBag.Cities = connect.Get("City");
-            ViewBag.Marks = connect.Get("Marks");
-            ViewBag.Employees = connect.Get("Employee");
-
-            connect.ChangeStatus(equip.InventoryNumber, equip.Status);
-
-            ViewBag.SuccessMessage = "Данные об устройстве изменены успешно";
-            return Redirect("Index");
+            ViewBag.SuccessMessage = Service.ChangeStatus(equip.InventoryNumber, equip.Status);
+            return RedirectToAction("Index");
          }
 
 
@@ -133,11 +129,10 @@ namespace WebApplication.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Status(Equipment equip)
+        public ActionResult Status(Models.Equipment equip)
         {
             return Redirect("Equipments/" + equip.InventoryNumber);
         }
-
 
 
     }
