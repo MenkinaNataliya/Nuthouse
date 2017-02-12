@@ -32,6 +32,19 @@ namespace DataBase
 
         }
 
+        public static string[] GetNaminStrings(BaseClass[] items)
+        {
+            return items.Select(item => item.Naming).ToArray();
+        }
+
+
+        public static string[] GetEmployeeString(Employee[] employees)
+        {
+            return
+                employees.Select(employee => employee.LastName + " " + employee.FirstName + " " + employee.SecondName)
+                    .ToArray();
+        }
+
 
         public static string AddEquipment(Equipment equip)
         {

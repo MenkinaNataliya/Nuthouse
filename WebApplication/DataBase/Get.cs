@@ -8,27 +8,27 @@ namespace DataBase
 {
     public class Get
     {
-        public static Denomination[] Denominations()
+        public static string[] Denominations()
         {
             using (var db = new DbModel())
-                return db.Denominations.ToArray();
+                return Service.GetNaminStrings(db.Denominations.ToArray());
         }
-        public static Mark[] Marks()
+        public static string[] Marks()
         {
             using (var db = new DbModel())
-                return db.Marks.ToArray();
-        }
-
-        public static City[] City()
-        {
-            using (var db = new DbModel())
-                return db.city.ToArray();
+                return Service.GetNaminStrings(db.Marks.ToArray());
         }
 
-        public static Employee[] Employee()
+        public static string[] City()
         {
             using (var db = new DbModel())
-                return db.Employees.ToArray();
+                return Service.GetNaminStrings(db.city.ToArray());
+        }
+
+        public static string[] Employee()
+        {
+            using (var db = new DbModel())
+                return Service.GetEmployeeString(db.Employees.ToArray());
         }
 
         public static List<Equipment> Equipments(Report report)

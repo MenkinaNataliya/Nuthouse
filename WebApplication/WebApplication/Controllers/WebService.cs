@@ -8,17 +8,6 @@ namespace WebApplication.Controllers
 {
     public class WebService
     {
-        public string[] GetNaminStrings(BaseClass[] items)
-        {
-            return items.Select(item => item.Naming).ToArray();
-        }
-
-        public string[] GetEmployeeString(Employee[] employees)
-        {
-            return
-                employees.Select(employee => employee.LastName + " " + employee.FirstName + " " + employee.SecondName)
-                    .ToArray();
-        }
 
         public DataBase.Equipment Translate(Models.Equipment equip)
         {

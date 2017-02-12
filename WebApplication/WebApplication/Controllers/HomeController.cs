@@ -14,11 +14,10 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult AddEquipment()
         {
-            var service = new WebService();
-            ViewBag.Denominations = service.GetNaminStrings( Get.Denominations());
-            ViewBag.Cities = service.GetNaminStrings(Get.City());
-            ViewBag.Marks = service.GetNaminStrings(Get.Marks());
-            ViewBag.Employees = service.GetEmployeeString(Get.Employee());
+            ViewBag.Denominations = Get.Denominations();
+            ViewBag.Cities = Get.City();
+            ViewBag.Marks = Get.Marks();
+            ViewBag.Employees = Get.Employee();
 
             return View();
         }
@@ -27,10 +26,10 @@ namespace WebApplication.Controllers
         public ActionResult AddEquipment(Models.Equipment equip)
         {
             var service = new WebService();
-            ViewBag.Denominations = service.GetNaminStrings(Get.Denominations());
-            ViewBag.Cities = service.GetNaminStrings(Get.City());
-            ViewBag.Marks = service.GetNaminStrings(Get.Marks());
-            ViewBag.Employees = service.GetEmployeeString(Get.Employee());
+            ViewBag.Denominations = Get.Denominations();
+            ViewBag.Cities = Get.City();
+            ViewBag.Marks = Get.Marks();
+            ViewBag.Employees = Get.Employee();
 
             if (ModelState.IsValid)
             {
@@ -73,11 +72,10 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult Report()
         {
-            var service = new WebService();
-            ViewBag.FilterDenominations = service.GetNaminStrings(Get.Denominations());
-            ViewBag.FilterCities = service.GetNaminStrings(Get.City());
-            ViewBag.FilterMarks = service.GetNaminStrings(Get.Marks());
-            ViewBag.FilterResponsibles = service.GetEmployeeString(Get.Employee());
+            ViewBag.FilterDenominations = Get.Denominations();
+            ViewBag.FilterCities = Get.City();
+            ViewBag.FilterMarks = Get.Marks();
+            ViewBag.FilterResponsibles = Get.Employee();
             return View();
         }
 
@@ -110,7 +108,7 @@ namespace WebApplication.Controllers
         public ActionResult Change( string id, string oldId)
         {
             var service = new WebService();
-            ViewBag.Employees = service.GetEmployeeString(Get.Employee());
+            ViewBag.Employees = Get.Employee();
             return View(service.TransletFromModel(Get.Equipments(id, oldId)));
         }
 

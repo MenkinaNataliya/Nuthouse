@@ -39,7 +39,7 @@ namespace DataBase
 
                     Console.WriteLine(message);
                     var jsonmsg = JsonConvert.DeserializeObject<JsonMessage>(message);
-                    switch (jsonmsg.Type)
+                   /* switch (jsonmsg.Type)
                     {
                         case "GetHistory":
                         {
@@ -110,7 +110,7 @@ namespace DataBase
                             message = JsonConvert.SerializeObject(json);
                         }
                             break;
-                    }
+                    }*/
                     data = Encoding.Unicode.GetBytes(message);
                     stream.Write(data, 0, data.Length);
                 }
