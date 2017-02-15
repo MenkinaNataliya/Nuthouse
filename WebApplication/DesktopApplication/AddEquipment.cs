@@ -116,14 +116,15 @@ namespace DesktopApplication
 
 
                 var error = Service.AddEquipment(TranslateDbEquipment(equipm));
-                if (error != "")
+                if (error == "Данные добавлены успешно")
                 {
-                    MessageBox.Show(error);
+                   
+                    MessageBox.Show("Устройство добавлено успешно");
+                    InitializeForm();
                 }
                 else
                 {
-                    MessageBox.Show("Устройство добавлено успешно");
-                    InitializeForm();
+                    MessageBox.Show(error);
                 }
 
             }
